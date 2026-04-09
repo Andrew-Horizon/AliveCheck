@@ -1,0 +1,1 @@
+import{g as e,p as o}from"./_plugin-vue_export-helper.BPohxfY8.js";const s={login:e=>o("/auth/login",e),register:e=>o("/auth/register",e),loginSms:e=>o("/auth/login-sms",e),sendCode:e=>o("/auth/send-code",{phone:e}),getMe:()=>e("/auth/me")};export{s as a};

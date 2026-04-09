@@ -130,10 +130,11 @@ const handleRegister = async () => {
     }, 1500);
       
   } catch (error) {
+    const errorMsg = error.message || error.error || '由于系统原因注册失败';
     uni.showToast({ 
-      title: error.error || '由于系统原因注册失败', 
+      title: errorMsg, 
       icon: 'none',
-      duration: 2000
+      duration: 2500
     });
   } finally {
     loading.value = false;

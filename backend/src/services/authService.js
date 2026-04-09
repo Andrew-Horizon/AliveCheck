@@ -9,15 +9,23 @@ class AuthService {
     // 1. Check if user already exists
     const existingUser = await UserModel.findByUsername(username);
     if (existingUser) {
-      const error = new Error('Username already exists');
+      const error = new Error('该用户名已存在');
       error.status = 409;
       throw error;
     }
     
+    // Check if phone already registered
+    const existingPhone = await UserModel.findByPhone(phone);
+    if (existingPhone) {
+      const error = new Error('该手机号已被注册');
+      error.status = 409;
+      throw error;
+    }
+
     if (email) {
        const existingEmail = await UserModel.findByEmail(email);
        if (existingEmail) {
-          const error = new Error('Email already registered');
+          const error = new Error('该邮箱已被注册');
           error.status = 409;
           throw error;
        }
@@ -42,7 +50,7 @@ class AuthService {
     // 1. Find the user
     const user = await UserModel.findByUsername(username);
     if (!user) {
-      const error = new Error('Invalid username or password');
+      const error = new Error('用户名或密码错误');
       error.status = 401;
       throw error;
     }
@@ -50,7 +58,7 @@ class AuthService {
     // 2. Compare passwords
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
     if (!isPasswordValid) {
-      const error = new Error('Invalid username or password');
+      const error = new Error('用户名或密码错误');
       error.status = 401;
       throw error;
     }
@@ -94,7 +102,7 @@ class AuthService {
   static async getProfile(userId) {
     const user = await UserModel.findById(userId);
     if (!user) {
-      const error = new Error('User not found');
+      const error = new Error('未找到该用户');
       error.status = 404;
       throw error;
     }

@@ -1,5 +1,6 @@
 // src/utils/request.js
-const BASE_URL = 'http://8.137.58.137:3000/api'; // Changed to production Aliyun server
+// const BASE_URL = 'http://8.137.58.137:3000/api'; // Production Aliyun server
+const BASE_URL = 'http://localhost:3000/api'; // Local development server
 
 function request(url, method = 'GET', data = {}) {
   return new Promise((resolve, reject) => {
